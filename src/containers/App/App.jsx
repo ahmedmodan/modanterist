@@ -1,7 +1,6 @@
 import React, { PropTypes } from 'react';
 import { Provider } from 'react-redux';
 import { Router } from 'react-router';
-import DevTools from '../devTools/devTools';
 
 export default class App extends React.Component {
   static propTypes = {
@@ -22,7 +21,6 @@ export default class App extends React.Component {
       <Provider store={this.props.store}>
         <div>
           { this.router }
-          <DevTools />
         </div>
       </Provider>
     );

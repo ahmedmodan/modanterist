@@ -105,9 +105,6 @@
     "phantomjs-polyfill": "0.0.2",
     "phantomjs-prebuilt": "^2.1.5",
     "react-addons-test-utils": "^0.14.7",
-    "redux-devtools": "3.1.1",
-    "redux-devtools-dock-monitor": "1.1.0",
-    "redux-devtools-log-monitor": "1.0.5",
     "sinon": "^1.17.3",
     "webpack-hot-middleware": "2.9.0"
   }
