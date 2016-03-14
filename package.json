@@ -1,5 +1,5 @@
 {
-  "name": "mondanterist",
+  "name": "modanterist",
   "version": "1.0.0",
   "description": "a pinterest clone in react + redux",
   "main": "server/server.js",
@@ -17,7 +17,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ModanBrothers/mondanterist.git"
+    "url": "git+https://github.com/ModanBrothers/modanterist.git"
   },
   "keywords": [
     "react",
@@ -27,9 +27,9 @@
   "author": "ModanBrothers",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ModanBrothers/mondanterist/issues"
+    "url": "https://github.com/ModanBrothers/modanterist/issues"
   },
-  "homepage": "https://github.com/ModanBrothers/mondanterist#readme",
+  "homepage": "https://github.com/ModanBrothers/modanterist#readme",
   "dependencies": {
     "autoprefixer": "^6.3.3",
     "babel-loader": "6.2.4",

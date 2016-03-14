@@ -6,7 +6,7 @@ export default class HelloRoutes extends React.Component {
     return (
       <div>
         <h1>Hello Routing!!</h1>
-        <Link to="/">Go Back To The Counter!!</Link>
+        <Link to="/counter">Go Back To The Counter!!</Link>
       </div>
     );
   }
