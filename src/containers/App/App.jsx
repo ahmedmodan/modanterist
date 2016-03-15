@@ -5,16 +5,14 @@ import { Router } from 'react-router';
 export default class App extends React.Component {
   static propTypes = {
     store: PropTypes.object.isRequired,
-    routes: PropTypes.object.isRequired,
+    routes: PropTypes.element.isRequired,
     history: PropTypes.object.isRequired
   };
 
   get router() {
-    const { counterRoutes, landingRoutes } = this.props.routes;
     return (
       <Router history={this.props.history}>
-        { landingRoutes }
-        { counterRoutes }
+        { this.props.routes }
       </Router>
     );
   }
