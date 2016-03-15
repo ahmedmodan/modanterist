@@ -1,13 +1,14 @@
-import thunk from 'redux-thunk';
+import ReduxThunk from 'redux-thunk';
+import promiseMiddleware from 'redux-promise';
 import rootReducer from './rootReducer';
-import DevTools from '../containers/devTools/devTools';
 import { applyMiddleware, compose, createStore } from 'redux';
 
 export default function configureStore(initialState) {
   let createStoreWithMiddleware = null;
-  const middleware = applyMiddleware(thunk);
+  const middleware = applyMiddleware(ReduxThunk, promiseMiddleware);
+  const devTools = window.devToolsExtension ? window.devToolsExtension() : f => f;
 
-  createStoreWithMiddleware = compose(middleware, DevTools.instrument());
+  createStoreWithMiddleware = compose(middleware, devTools);
 
   const store = createStoreWithMiddleware(createStore)(
     rootReducer, initialState

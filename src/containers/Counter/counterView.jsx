@@ -36,7 +36,7 @@ export class CounterView extends React.Component {
         <DisplayNumber numToDisplay={this.props.counter} />
         <button onClick={this.handleIncrement}>increment</button>
         <button onClick={this.handleDecrement}>decrement</button>
-        <Link to="/hello">Let's Do Some Routing!</Link>
+        <Link to="counter/hello">Let's Do Some Routing!</Link>
       </div>
     );
   }

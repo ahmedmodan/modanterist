@@ -1,5 +1,5 @@
 {
-  "name": "mondanterist",
+  "name": "modanterist",
   "version": "1.0.0",
   "description": "a pinterest clone in react + redux",
   "main": "server/server.js",
@@ -17,7 +17,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ModanBrothers/mondanterist.git"
+    "url": "git+https://github.com/ModanBrothers/modanterist.git"
   },
   "keywords": [
     "react",
@@ -27,9 +27,9 @@
   "author": "ModanBrothers",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ModanBrothers/mondanterist/issues"
+    "url": "https://github.com/ModanBrothers/modanterist/issues"
   },
-  "homepage": "https://github.com/ModanBrothers/mondanterist#readme",
+  "homepage": "https://github.com/ModanBrothers/modanterist#readme",
   "dependencies": {
     "autoprefixer": "^6.3.3",
     "babel-loader": "6.2.4",
@@ -38,6 +38,7 @@
     "co-pg": "^1.3.1",
     "css-loader": "^0.23.1",
     "dotenv": "2.0.0",
+    "es6-promise": "^3.1.2",
     "eslint-loader": "1.3.0",
     "file-loader": "^0.8.5",
     "history": "2.0.0",
@@ -58,7 +59,9 @@
     "react-router": "2.0.0",
     "react-router-redux": "4.0.0",
     "redux": "3.3.1",
-    "redux-thunk": "1.0.3",
+    "redux-form": "^4.2.2",
+    "redux-promise": "^0.5.1",
+    "redux-thunk": "^2.0.1",
     "resolve-url-loader": "^1.4.3",
     "sass-loader": "^3.1.2",
     "sass-resources-loader": "^1.0.2",
@@ -67,6 +70,7 @@
     "url": "0.11.0",
     "url-loader": "^0.5.7",
     "webpack": "1.12.14",
+    "whatwg-fetch": "^0.11.0",
     "yargs": "^4.2.0"
   },
   "devDependencies": {
@@ -102,9 +106,6 @@
     "phantomjs-polyfill": "0.0.2",
     "phantomjs-prebuilt": "^2.1.5",
     "react-addons-test-utils": "^0.14.7",
-    "redux-devtools": "3.1.1",
-    "redux-devtools-dock-monitor": "1.1.0",
-    "redux-devtools-log-monitor": "1.0.5",
     "sinon": "^1.17.3",
     "webpack-hot-middleware": "2.9.0"
   }
