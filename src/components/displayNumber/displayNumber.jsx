@@ -4,7 +4,7 @@ import React, { PropTypes } from 'react';
 require('./displaynumber.scss');
 
 // This is a stateless function/component. it only takes in a prop and then displays it
-function DisplayNumber({ numToDisplay }) {
+export function DisplayNumber({ numToDisplay }) {
   return (
     <div>
       <h3 className="numToDisplay">{ numToDisplay.get('counter') }</h3>

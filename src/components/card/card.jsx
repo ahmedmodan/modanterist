@@ -1,21 +1,31 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 
+require('./card.scss');
 
-function card(props) {
+export function Card() {
   return (
-      <article className="col-md-4">
-        <img src={ props.imagecdn } className="img-fluid img-rounded" />
-        <div>
-          <p>
-
-          </p>
-        </div>
-      </article>
-    );
+    <div className="card">
+      <img className="card-img-top img-fluid" src="http://placehold.it/700x300" alt="placeholder" />
+      <div className="card-block">
+        <p className="text-muted">
+          <small>this is the amount of pins</small>
+        </p>
+        <h5 className="card-title">
+          <strong>This is the card title</strong>
+        </h5>
+        <p className="card-text">This is the card description</p>
+      </div>
+      <ul className="list-group list-group-flush">
+        <li className="list-group-item">
+          <p><small>this is the board the pin came from</small></p>
+        </li>
+        <li className="list-group-item">
+          <p className="text-muted"><small>this the tag this pin belongs to</small></p>
+        </li>
+      </ul>
+    </div>
+  );
 }
 
-card.propTypes = {
-  imagecdn: PropTypes.string.isRequired
-};
 
-export default card;
+export default Card;
