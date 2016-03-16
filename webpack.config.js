@@ -32,14 +32,6 @@ const webpackConfiguration = {
         loaders: ['style', 'css', 'postcss', 'sass']
       },
       {
-        test: /\.woff2?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        loader: 'url?limit=10000'
-      },
-      {
-        test: /\.(ttf|eot|svg)(\?[\s\S]+)?$/,
-        loader: 'file'
-      },
-      {
         test: /bootstrap[\/\\]dist[\/\\]js[\/\\]umd[\/\\]/,
         loader: 'imports?jQuery=jquery'
       }],
@@ -57,8 +49,7 @@ const webpackConfiguration = {
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.ProvidePlugin({
-      'window.Tether': 'tether',
-      'jQuery': 'jquery'
+      'window.Tether': 'tether'
     }),
     new HtmlWebpackPlugin({
       template: 'index.html'

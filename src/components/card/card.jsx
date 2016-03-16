@@ -1,6 +1,6 @@
 import React from 'react';
 
-require('./card.scss');
+require('./modanteristcard.scss');
 
 export function Card() {
   return (
