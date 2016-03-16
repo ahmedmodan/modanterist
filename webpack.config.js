@@ -39,7 +39,8 @@ const webpackConfiguration = {
         test: /\.(ttf|eot|svg)(\?[\s\S]+)?$/,
         loader: 'file'
       },
-      { test: /bootstrap-sass\/assets\/javascripts\//,
+      {
+        test: /bootstrap[\/\\]dist[\/\\]js[\/\\]umd[\/\\]/,
         loader: 'imports?jQuery=jquery'
       }],
   },
@@ -56,7 +57,8 @@ const webpackConfiguration = {
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.ProvidePlugin({
-      'window.Tether': 'tether'
+      'window.Tether': 'tether',
+      'jQuery': 'jquery'
     }),
     new HtmlWebpackPlugin({
       template: 'index.html'
