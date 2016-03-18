@@ -11,9 +11,10 @@
   },
   "scripts": {
     "test": "cp .babelrc.test .babelrc && node_modules/.bin/karma start karma.config.js",
+    "test:dev": "npm run test -- --watch",
     "start": "cp .babelrc.dev .babelrc && npm run clean && webpack --progress && nodemon server/server.js",
     "clean": "rm -rf dist",
-    "deploy": "npm run clean && webpack --progress -p"
+    "deploy": "npm run test && npm run clean && webpack --progress -p"
   },
   "repository": {
     "type": "git",
