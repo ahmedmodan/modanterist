@@ -8,3 +8,4 @@ npm-debug-log
 log
 .babelrc
 logfile
+npm-debug.log
