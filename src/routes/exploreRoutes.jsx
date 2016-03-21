@@ -8,4 +8,4 @@ export default (
   <Route path="explore" component={ ExploreLayout }>
     <IndexRoute component={ Explore } />
   </Route>
-)
+);
