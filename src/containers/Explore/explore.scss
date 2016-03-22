@@ -1,0 +1,21 @@
+#pin-button {
+  right: 2rem;
+  bottom: 2rem;
+  position: fixed;
+}
+
+@media (min-width: 0em) {
+  .card-grid-container {
+    padding-left: 4rem;
+  }
+}
+
+
+
+@media (min-width: 34em) {
+  .card-grid-container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
