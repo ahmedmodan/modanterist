@@ -27,7 +27,7 @@ export class NavBar extends React.Component {
     return (
       <div>
         <nav className="navbar navbar-light bg-faded navbar-fixed-top">
-          <a className="navbar-brand" href="/explore">Modanterist</a>
+          <Link to="/explore" className="navbar-brand">Modanterist</Link>
           <ul className="nav navbar-nav">
             <li className="pull-xs-right">
               { this.loginLogout }
