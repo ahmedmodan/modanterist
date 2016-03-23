@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 
 import NavBar from './../../components/navbar/navbar.jsx';
 import CardGrid from './../../components/CardGrid/CardGrid.jsx';
-import PinButtonModal from './../../components/pinButtonModal/pinButtonModal.jsx';
+import ButtonModal from './../../components/ButtonModal/ButtonModal.jsx';
 
 require('./explore.scss');
 
@@ -16,7 +16,11 @@ export class Explore extends React.Component {
       <div className="card-grid-container">
         <NavBar location={this.props.location} />
         <CardGrid arrOfCards={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]} />
-        <PinButtonModal className="pin-button" />
+        <ButtonModal className="pin-button"
+          buttonName="PIN"
+          modalTitle="Create a Pin"
+          saveButtonName="Save Pin"
+        />
       </div>
     );
   }
