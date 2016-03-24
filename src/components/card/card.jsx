@@ -1,17 +1,17 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 
 require('./modanteristcard.scss');
 
-export function Card() {
+export function Card({ title }) {
   return (
     <div className="card">
-      <img className="card-img-top img-fluid" src="http://placehold.it/700x300" alt="placeholder" />
+      <img className="card-img-top img-fluid" src={ `http://placehold.it/700x${title}00` } alt="placeholder" />
       <div className="card-block">
         <p className="text-muted">
           <small>this is the amount of pins</small>
         </p>
         <h5 className="card-title">
-          <strong>This is the card title</strong>
+          <strong>{ title }</strong>
         </h5>
         <p className="card-text">This is the card description</p>
       </div>
@@ -26,6 +26,10 @@ export function Card() {
     </div>
   );
 }
+
+Card.propTypes = {
+  title: PropTypes.number.isRequired,
+};
 
 
 export default Card;
