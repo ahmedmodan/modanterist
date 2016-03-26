@@ -2,7 +2,8 @@ import React, { PropTypes } from 'react';
 import { reduxForm } from 'redux-form';
 
 import DropZone from 'react-DropZone';
-import SmallFormInput from './../smFormInput/smFormInput.jsx';
+import SmallFormInput from './../smallFormInput/smallFormInput.jsx';
+import TextArea from './../textArea/textArea.jsx';
 
 export class PinForm extends React.Component {
   static propTypes = {
@@ -25,19 +26,12 @@ export class PinForm extends React.Component {
           >
             <div>Drag and Drop your image here, or click to select an image.</div>
           </DropZone>
-          <div>
-          </div>
         </div>
         <SmallFormInput field={ title } inputLabel="Title" />
-        <div className="form-group">
-          <label htmlFor="pin-description">Description</label>
-          <textarea
-            className="form-control"
-            id="pin-description"
-            rows="3"
-            { ...description }
-          />
-        </div>
+        <TextArea field={ description }
+          inputLabel="Description"
+          rows={ 3 }
+        />
         <SmallFormInput field={ link } inputLabel="Link" />
         <SmallFormInput field={ tags }
           inputLabel="Tags"

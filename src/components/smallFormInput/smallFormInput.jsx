@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 
-function SmallFormInput(props) {
+export function SmallFormInput(props) {
   const { field, inputLabel, optionalDescriptor } = props;
   return (
     <div className="form-group">
