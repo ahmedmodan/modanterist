@@ -1,6 +1,8 @@
 import React, { PropTypes } from 'react';
 import { reduxForm } from 'redux-form';
+
 import DropZone from 'react-DropZone';
+import SmallFormInput from './../smFormInput/smFormInput.jsx';
 
 export class PinForm extends React.Component {
   static propTypes = {
@@ -26,14 +28,7 @@ export class PinForm extends React.Component {
           <div>
           </div>
         </div>
-        <div className="form-group">
-          <label htmlFor="pin-title">Title</label>
-          <input type="text"
-            className="form-control form-control-sm"
-            id="pin-title"
-            { ...title }
-          />
-        </div>
+        <SmallFormInput field={ title } inputLabel="Title" />
         <div className="form-group">
           <label htmlFor="pin-description">Description</label>
           <textarea
@@ -43,25 +38,11 @@ export class PinForm extends React.Component {
             { ...description }
           />
         </div>
-        <div className="form-group">
-          <label htmlFor="pin-link">Link</label>
-          <input type="text"
-            className="form-control form-control-sm"
-            id="pin-link"
-            { ...link }
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="pin-tags">
-            Tags
-            <p className="text-muted"><small>(separated by a comma)</small></p>
-          </label>
-          <input type="text"
-            className="form-control form-control-sm"
-            id="pin-tags"
-            { ...tags }
-          />
-        </div>
+        <SmallFormInput field={ link } inputLabel="Link" />
+        <SmallFormInput field={ tags }
+          inputLabel="Tags"
+          optionalDescriptor=" separated by commas"
+        />
       </form>
     );
   }
