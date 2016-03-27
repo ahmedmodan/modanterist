@@ -1,6 +1,8 @@
 import React, { PropTypes } from 'react';
 import { reduxForm } from 'redux-form';
 
+import { postPin } from './../../reux/modules/pin.js';
+
 import DropZone from 'react-DropZone';
 import SmallFormInput from './../smallFormInput/smallFormInput.jsx';
 import TextArea from './../textArea/textArea.jsx';
@@ -18,31 +20,26 @@ export class PinForm extends React.Component {
   render() {
     const { fields: { title, description, tags, link, image }, handleSubmit } = this.props;
     return (
-      <form className="form-horizontal" onSubmit={ handleSubmit } >
+      <form className="form-horizontal" onSubmit={ handleSubmit(postPin) } >
         <div className="form-group">
-          <DropZone
-            { ...image }
-            onDrop={ this.handleImage }
-          >
+          <DropZone { ...image } onDrop={ this.handleImage }>
             <div>Drag and Drop your image here, or click to select an image.</div>
           </DropZone>
         </div>
         <SmallFormInput field={ title } inputLabel="Title" />
-        <TextArea field={ description }
-          inputLabel="Description"
-          rows={ 3 }
-        />
+        <TextArea field={ description } inputLabel="Description" rows={ 3 } />
         <SmallFormInput field={ link } inputLabel="Link" />
-        <SmallFormInput field={ tags }
-          inputLabel="Tags"
+        <SmallFormInput field={ tags } inputLabel="Tags"
           optionalDescriptor=" separated by commas"
         />
+        <button type="submit" className="btn btn-primary">Save Pin</button>
       </form>
     );
   }
 }
 
+
 export default reduxForm({
   form: 'postPin',
   fields: ['title', 'description', 'tags', 'link', 'image']
-})(PinForm);
+}, () => { }, { postPin })(PinForm);

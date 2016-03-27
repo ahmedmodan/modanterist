@@ -1,9 +1,7 @@
 import React, { PropTypes } from 'react';
 
-import PinForm from './../pinForm/pinForm.jsx';
-
 export function ButtonModal(props) {
-  const { buttonName, modalTitle, saveButtonName } = props;
+  const { buttonName, modalTitle, modalBody } = props;
   return (
     <div>
       <button className="btn btn-secondary"
@@ -18,7 +16,7 @@ export function ButtonModal(props) {
         tabIndex="-1" role="dialog"
         aria-labelledby="myModalLabel"
         aria-hidden="true"
-      > /
+      >
         <div className="modal-dialog" role="document">
           <div className="modal-content">
             <div className="modal-header">
@@ -28,13 +26,7 @@ export function ButtonModal(props) {
               <h4 className="modal-title" id="myModalLabel">{ modalTitle }</h4>
             </div>
             <div className="modal-body">
-              <PinForm />
-            </div>
-            <div className="modal-footer">
-              <button type="button" className="btn btn-secondary" data-dismiss="modal">
-                Cancel
-              </button>
-              <button type="button" className="btn btn-primary">{ saveButtonName }</button>
+              { modalBody }
             </div>
           </div>
         </div>
@@ -46,6 +38,7 @@ export function ButtonModal(props) {
 ButtonModal.propTypes = {
   buttonName: PropTypes.string.isRequired,
   modalTitle: PropTypes.string.isRequired,
+  modalBody: PropTypes.element.isRequired,
   saveButtonName: PropTypes.string.isRequired
 };
 
