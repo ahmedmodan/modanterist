@@ -6,7 +6,7 @@ export function TextArea(props) {
     <div className="form-group">
       <label htmlFor="text-area-component">
         { inputLabel }
-        { optionalDescriptor }
+        <small className="text-muted">{ optionalDescriptor }</small>
       </label>
       <textarea
         className="form-control"
