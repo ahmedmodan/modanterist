@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { reduxForm } from 'redux-form';
 
-import { postPin } from './../../reux/modules/pin.js';
+import { postPin } from './../../redux/modules/pin.js';
 
 import DropZone from 'react-DropZone';
 import SmallFormInput from './../smallFormInput/smallFormInput.jsx';

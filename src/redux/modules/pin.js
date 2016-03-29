@@ -1,6 +1,10 @@
+import Cloudinary from 'cloudinary';
+
 export const POST_PIN = 'POST_PIN';
 
 export function postPin(payload) {
+  console.log(payload);
+  Cloudinary.uploader.upload(pa)
   const request = fetch('/users', {
     method: 'POST',
     headers: {
