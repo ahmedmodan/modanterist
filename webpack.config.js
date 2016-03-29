@@ -14,12 +14,12 @@ const webpackConfiguration = {
   ],
   module: {
     preLoaders: [{
-      test: /\.jsx?$/,
+      test: /\.(js|jsx)?$/,
       loaders: ['eslint'],
       include: path.resolve(ROOT_PATH, 'src')
     }],
     loaders: [{
-      test: /\.jsx?$/,
+      test: /\.(js|jsx)?$/,
       exclude: /node_modules/,
       loader: 'babel'
     },
