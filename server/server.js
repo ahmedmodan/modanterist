@@ -9,7 +9,6 @@ const koa = require('koa');
 const serve = require('koa-static');
 const router = require('./middleware/api/routes');
 const historyApiFallback = require('koa-connect-history-api-fallback');
-const bodyparser = require('koa-bodyparser');
 
 const app = koa();
 
@@ -18,7 +17,6 @@ if (process.env.NODE_ENV === 'development') {
   app.use(devMiddlware.webpackHotMiddleware(compiler));
 }
 
-app.use(bodyparser());
 app.use(router.routes());
 app.use(historyApiFallback());
 app.use(serve(`${__dirname}/../dist`));
