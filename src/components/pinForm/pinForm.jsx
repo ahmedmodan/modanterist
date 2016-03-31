@@ -31,7 +31,7 @@ export class PinForm extends React.Component {
         <TextArea field={ description } inputLabel="Description" rows={ 3 } />
         <SmallFormInput field={ link } inputLabel="Link" />
         <SmallFormInput field={ tags } inputLabel="Tags"
-          optionalDescriptor=" separated by commas"
+          optionalDescriptor=" separated by a space"
         />
         <button type="submit" className="btn btn-primary">Save Pin</button>
       </form>

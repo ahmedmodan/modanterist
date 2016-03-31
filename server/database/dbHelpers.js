@@ -15,16 +15,13 @@ const queryDB = function* (query) {
 };
 
 const cardInsertQueryBuilder = (values) => {
-  const tagsString = values.tags.split(' ').reduce((formattedTags, tag) => {
-    if (!!tagsString) {
-      return `${formattedTags}`;
-    }
-    return `${formattedTags}", "${tag}`;
-  });
-  return `INSERT INTO cards VALUES ('${values.title}',
-                                    '${values.description}',
-                                    '${values.image_url}',
-                                    '${values.link}',
+  const tagsString = values.tags.replace(/["']/g, '').split(' ').reduce(
+    (formattedTags, tag) => `${formattedTags}", "${tag}`);
+
+  return `INSERT INTO cards VALUES ($$'${values.title}'$$,
+                                    $$'${values.description}'$$,
+                                    $$'${values.image_url}'$$,
+                                    $$'${values.link}'$$,
                                     '{"${tagsString}"}')`;
 };
 
