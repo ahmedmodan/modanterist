@@ -4,35 +4,35 @@ DROP TABLE IF EXISTS cards CASCADE;
 DROP TABLE IF EXISTS boards_cards CASCADE;
 
 CREATE TABLE users(
-  _id serial PRIMARY KEY,
-  username varchar(160) UNIQUE,
-  password varchar(160)
+  username text UNIQUE,
+  password text,
+  _id serial PRIMARY KEY
 );
 
 CREATE TABLE boards (
-  _id serial PRIMARY KEY,
-  description varchar(50),
+  title text,
   user_id integer,
+  _id serial PRIMARY KEY,
   FOREIGN KEY (user_id) REFERENCES users(_id)
 );
 
-CREATE TABLE tags (
-  _id bigserial PRIMARY KEY,
-  tag varchar(30)
-);
-
 CREATE TABLE cards (
-  _id bigserial PRIMARY KEY,
-  description varchar(250),
-  image_url varchar(250),
-  tags_id integer,
-  FOREIGN KEY (tags_id) REFERENCES tags(_id)
+  title text,
+  description text,
+  image_url text,
+  tags text[],
+  _id bigserial PRIMARY KEY
 );
 
 CREATE TABLE boards_cards (
   card_id integer,
   board_id integer,
-  FOREIGN KEY (card_id) REFERENCES cards (_id) ON UPDATE CASCADE,
+  FOREIGN KEY (card_id) REFERENCES cards (_id) ON UPDATE CASCADE ON DELETE CASCADE,
   FOREIGN KEY (board_id) REFERENCES boards (_id) ON UPDATE CASCADE ON DELETE CASCADE,
   CONSTRAINT board_card_pk PRIMARY KEY (board_id, card_id) --composite id optimizes query when done using board_id
 );
+
+-- card insert example:
+-- INSERT INTO cards VALUES ('title2', 'description2', 'url2', '{ "tag4", "tag2", "tag5" }')
+-- select from arrays example:
+-- pint=# SELECT * FROM cards WHERE 'tag2' = ANY (-- this is the table: tags);
