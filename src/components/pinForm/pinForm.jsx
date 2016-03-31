@@ -11,6 +11,7 @@ export class PinForm extends React.Component {
   static propTypes = {
     fields: PropTypes.object.isRequired,
     handleSubmit: PropTypes.func.isRequired,
+    postPin: PropTypes.func.isRequired
   }
 
   handleImage(imageFile) {
@@ -20,7 +21,7 @@ export class PinForm extends React.Component {
   render() {
     const { fields: { title, description, tags, link, image }, handleSubmit } = this.props;
     return (
-      <form className="form-horizontal" onSubmit={ handleSubmit(postPin) } >
+      <form className="form-horizontal" onSubmit={ handleSubmit(this.props.postPin) } >
         <div className="form-group">
           <DropZone { ...image } onDrop={ this.handleImage }>
             <div>Drag and Drop your image here, or click to select an image.</div>
