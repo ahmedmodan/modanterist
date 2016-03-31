@@ -8,6 +8,7 @@ const devMiddlware = require('./middleware/dev-middleware');
 const koa = require('koa');
 const serve = require('koa-static');
 const router = require('./middleware/api/routes');
+const cloudinary = require('cloudinary');
 const historyApiFallback = require('koa-connect-history-api-fallback');
 
 const app = koa();
@@ -16,6 +17,13 @@ if (process.env.NODE_ENV === 'development') {
   app.use(devMiddlware.webpackDevMiddleware(webpackConfig, compiler));
   app.use(devMiddlware.webpackHotMiddleware(compiler));
 }
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET
+});
+
 app.use(router.routes());
 app.use(historyApiFallback());
 app.use(serve(`${__dirname}/../dist`));

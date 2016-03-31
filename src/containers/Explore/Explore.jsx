@@ -3,12 +3,17 @@ import React, { PropTypes } from 'react';
 import NavBar from './../../components/navbar/navbar.jsx';
 import CardGrid from './../../components/CardGrid/CardGrid.jsx';
 import ButtonModal from './../../components/ButtonModal/ButtonModal.jsx';
+import PinForm from './../../components/pinForm/pinForm.jsx';
 
 require('./explore.scss');
 
 export class Explore extends React.Component {
   static propTypes = {
     location: PropTypes.object.isRequired,
+  }
+
+  get pinFormForModal() {
+    return <PinForm />;
   }
 
   render() {
@@ -20,6 +25,7 @@ export class Explore extends React.Component {
           buttonName="PIN"
           modalTitle="Create a Pin"
           saveButtonName="Save Pin"
+          modalBody={ this.pinFormForModal }
         />
       </div>
     );
