@@ -1,4 +1,5 @@
 const pg = require('co-pg')(require('pg'));
+const cloudinary = require('cloudinary');
 
 const connectionString = process.env.DB;
 
@@ -14,14 +15,15 @@ const queryDB = function* (query) {
 };
 
 const cardInsertQueryBuilder = (values) => {
-  const tagsString = values.tags.split(' ').reduce((allTags, tag) => {
+  const tagsString = values.tags.split(' ').reduce((formattedTags, tag) => {
     if (!!tagsString) {
-      return `${allTags}`;
+      return `${formattedTags}`;
     }
-    return `${allTags}", "${tag}`;
+    return `${formattedTags}", "${tag}`;
   });
   return `INSERT INTO cards VALUES ('${values.title}',
                                     '${values.description}',
+                                    '${values.image_url}',
                                     '${values.link}',
                                     '{"${tagsString}"}')`;
 };
@@ -36,8 +38,19 @@ const insertQueryBuilder = (table, values) => {
   }
 };
 
+const cloudinaryUpload = (file, callback) => done => {
+  cloudinary.uploader.upload(file, result => {
+    callback(result);
+    done();
+  });
+};
+
+
+
+
 module.exports = {
   CARDS,
   queryDB,
-  insertQueryBuilder
+  insertQueryBuilder,
+  cloudinaryUpload
 };

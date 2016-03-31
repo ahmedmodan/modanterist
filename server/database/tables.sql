@@ -20,6 +20,7 @@ CREATE TABLE cards (
   title text,
   description text,
   image_url text,
+  link text,
   tags text[],
   _id bigserial PRIMARY KEY
 );
