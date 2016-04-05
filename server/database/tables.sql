@@ -25,6 +25,11 @@ CREATE TABLE cards (
   _id bigserial PRIMARY KEY
 );
 
+CREATE TABLE tags (
+  tag text,
+  _id serial
+);
+
 CREATE TABLE boards_cards (
   card_id integer,
   board_id integer,
