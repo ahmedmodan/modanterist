@@ -15,15 +15,18 @@ const queryDB = function* (query) {
 };
 
 const cardInsertQueryBuilder = (values) => {
-  const tagsString = values.tags.replace(/["']/g, '').split(' ').reduce(
-    (formattedTags, tag) => `${formattedTags}", "${tag}`);
-
-  return `INSERT INTO cards VALUES ($$'${values.title}'$$,
-                                    $$'${values.description}'$$,
-                                    $$'${values.image_url}'$$,
-                                    $$'${values.link}'$$,
-                                    '{"${tagsString}"}')`;
+  const tagIDs = values.tags.rows.reduce(
+    (formattedTagIds, tagId) =>
+    formattedTagIds === '' ? `${tagId._id}` : `${formattedTagIds}, ${tagId._id}`
+    , '');
+  return `INSERT INTO cards VALUES ($$${values.title}$$,
+                                    $$${values.description}$$,
+                                    $$${values.image_url}$$,
+                                    $$${values.link}$$,
+                                    '{${tagIDs}}')`;
 };
+
+
 
 const insertQueryBuilder = (table, values) => {
   switch (table) {
