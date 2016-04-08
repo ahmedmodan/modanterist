@@ -4,6 +4,7 @@ const cloudinary = require('cloudinary');
 const connectionString = process.env.DB;
 
 const CARDS = 'CARDS';
+const TAGS = 'TAGS';
 
 const queryDB = function* (query) {
   const connectionResults = yield pg.connectPromise(connectionString);
@@ -12,6 +13,12 @@ const queryDB = function* (query) {
   const result = yield client.queryPromise(query);
   done();
   return result;
+};
+
+const tagInsertQueryBuilder = (tags) => {
+  const formattedTags = tags.split(' ').reduce((formattedTag, tag) =>
+    formattedTag === '' ? `($$${tag}$$)` : `${formattedTag}, ($$${tag}$$)`, '');
+  return `INSERT INTO tags VALUES ${formattedTags}`;
 };
 
 const cardInsertQueryBuilder = (values) => {
@@ -32,6 +39,8 @@ const insertQueryBuilder = (table, values) => {
   switch (table) {
     case CARDS:
       return cardInsertQueryBuilder(values);
+    case TAGS:
+      return tagInsertQueryBuilder(values);
     default:
     // TODO: CHANGE DEFAULT RETURN STATEMENT
       return null;
@@ -50,6 +59,7 @@ const cloudinaryUpload = (file, callback) => done => {
 
 module.exports = {
   CARDS,
+  TAGS,
   queryDB,
   insertQueryBuilder,
   cloudinaryUpload
