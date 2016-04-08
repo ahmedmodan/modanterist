@@ -24,6 +24,16 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET
 });
 
+app.use(function *(next) {
+  try {
+    yield next;
+  } catch (err) {
+    this.status = err.status || 500;
+    this.body = err.message;
+    this.app.emit('error', err, this);
+  }
+});
+
 app.use(router.routes());
 app.use(historyApiFallback());
 app.use(serve(`${__dirname}/../dist`));
