@@ -1,6 +1,7 @@
 DROP TABLE IF EXISTS users CASCADE;
 DROP TABLE IF EXISTS boards CASCADE;
 DROP TABLE IF EXISTS cards CASCADE;
+DROP TABLE IF EXISTS tags CASCADE;
 DROP TABLE IF EXISTS boards_cards CASCADE;
 
 CREATE TABLE users(
@@ -21,7 +22,7 @@ CREATE TABLE cards (
   description text,
   image_url text,
   link text,
-  tags text[],
+  tags_ids int[],
   _id bigserial PRIMARY KEY
 );
 
