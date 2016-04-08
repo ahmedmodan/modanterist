@@ -4,6 +4,7 @@ const cloudinary = require('cloudinary');
 const connectionString = process.env.DB;
 
 const CARDS = 'CARDS';
+const TAGS = 'TAGS';
 
 const queryDB = function* (query) {
   const connectionResults = yield pg.connectPromise(connectionString);
@@ -14,21 +15,44 @@ const queryDB = function* (query) {
   return result;
 };
 
-const cardInsertQueryBuilder = (values) => {
-  const tagsString = values.tags.replace(/["']/g, '').split(' ').reduce(
-    (formattedTags, tag) => `${formattedTags}", "${tag}`);
+const tagInsertQueryBuilder = (tags) => {
+  const formattedTags = tags.split(' ').reduce((formattedTag, tag) =>
+    formattedTag === '' ? `($$${tag}$$)` : `${formattedTag}, ($$${tag}$$)`, '');
+  return `INSERT INTO tags VALUES ${formattedTags}`;
+};
 
-  return `INSERT INTO cards VALUES ($$'${values.title}'$$,
-                                    $$'${values.description}'$$,
-                                    $$'${values.image_url}'$$,
-                                    $$'${values.link}'$$,
-                                    '{"${tagsString}"}')`;
+const tagsSelectQueryBuilder = (column, params) =>
+  `SELECT ${column} FROM tags WHERE tag = ANY('{${params.join(',')}}'::text[])`;
+
+const cardInsertQueryBuilder = (values) => {
+  const tagIDs = values.tags.rows.reduce(
+    (formattedTagIds, tagId) =>
+    formattedTagIds === '' ? `${tagId._id}` : `${formattedTagIds}, ${tagId._id}`
+    , '');
+  return `INSERT INTO cards VALUES ($$${values.title}$$,
+                                    $$${values.description}$$,
+                                    $$${values.image_url}$$,
+                                    $$${values.link}$$,
+                                    '{${tagIDs}}')`;
+};
+
+
+const selectQueryBuilder = (table, data) => {
+  switch (table) {
+    case TAGS:
+      return tagsSelectQueryBuilder(data.column, data.params.split(' '));
+    default:
+    // TODO: CHANGE DEFAULT RETURN STATEMENT
+      return null;
+  }
 };
 
 const insertQueryBuilder = (table, values) => {
   switch (table) {
     case CARDS:
       return cardInsertQueryBuilder(values);
+    case TAGS:
+      return tagInsertQueryBuilder(values);
     default:
     // TODO: CHANGE DEFAULT RETURN STATEMENT
       return null;
@@ -47,7 +71,9 @@ const cloudinaryUpload = (file, callback) => done => {
 
 module.exports = {
   CARDS,
+  TAGS,
   queryDB,
+  selectQueryBuilder,
   insertQueryBuilder,
   cloudinaryUpload
 };

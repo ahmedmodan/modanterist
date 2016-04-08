@@ -6,7 +6,7 @@ const autoprefixer = require('autoprefixer');
 const ROOT_PATH = path.resolve(__dirname);
 
 const webpackConfiguration = {
-  devtool: 'eval',
+  devtool: 'cheap-module-source-map',
   entry: [
     'bootstrap-loader',
     'tether',
