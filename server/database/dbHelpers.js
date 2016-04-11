@@ -15,14 +15,30 @@ const queryDB = function* (query) {
   return result;
 };
 
+
+// SELECT QUERY BUILDERS
+const tagsSelectQueryBuilder = (column, params) =>
+  `SELECT ${column} FROM tags WHERE tag = ANY('{${params.join(',')}}'::text[])`;
+
+const cardsSelectQueryBuilder = (column, params = 'all') => {
+  let formattedColumns = column[0];
+  if (column.length > 1) {
+    formattedColumns = column.join(',');
+  }
+  if (params === 'all') {
+    return `SELECT ${formattedColumns} FROM cards`;
+  }
+  return `SELECT ${formattedColumns} FROM cards
+    WHERE tags_ids && '{${params.join(',')}}'`;
+};
+
+
+// INSERT QUERY BUILDERS
 const tagInsertQueryBuilder = (tags) => {
   const formattedTags = tags.split(' ').reduce((formattedTag, tag) =>
     formattedTag === '' ? `($$${tag}$$)` : `${formattedTag}, ($$${tag}$$)`, '');
   return `INSERT INTO tags VALUES ${formattedTags}`;
 };
-
-const tagsSelectQueryBuilder = (column, params) =>
-  `SELECT ${column} FROM tags WHERE tag = ANY('{${params.join(',')}}'::text[])`;
 
 const cardInsertQueryBuilder = (values) => {
   const tagIDs = values.tags.rows.reduce(
@@ -41,6 +57,8 @@ const selectQueryBuilder = (table, data) => {
   switch (table) {
     case TAGS:
       return tagsSelectQueryBuilder(data.column, data.params.split(' '));
+    case CARDS:
+      return cardsSelectQueryBuilder(data.column, data.params);
     default:
     // TODO: CHANGE DEFAULT RETURN STATEMENT
       return null;
