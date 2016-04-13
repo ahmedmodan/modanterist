@@ -1,4 +1,7 @@
 import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
+
+import { getPins } from './../../redux/modules/pin.jsx';
 
 import NavBar from './../../components/navbar/navbar';
 import CardGrid from './../../components/CardGrid/CardGrid';
@@ -7,10 +10,22 @@ import PinForm from './../../components/pinForm/pinForm';
 
 require('./explore.scss');
 
+const mapStateToProps = (state) => ({
+  pins: state.pin.get('pins')
+});
+
 export class Explore extends React.Component {
   static propTypes = {
     location: PropTypes.object.isRequired,
+    pins: PropTypes.array,
+    getPins: PropTypes.func.isRequired,
   }
+
+
+  componentWillMount() {
+    this.props.getPins(['art', 'diy', 'food', 'fitness']);
+  }
+
 
   get pinFormForModal() {
     return <PinForm />;
@@ -20,7 +35,7 @@ export class Explore extends React.Component {
     return (
       <div className="card-grid-container">
         <NavBar location={this.props.location} />
-        <CardGrid arrOfCards={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]} />
+        <CardGrid arrOfCards={ this.props.pins } />
         <ButtonModal className="pin-button"
           buttonName="PIN"
           modalTitle="Create a Pin"
@@ -32,4 +47,4 @@ export class Explore extends React.Component {
   }
 }
 
-export default Explore;
+export default connect(mapStateToProps, { getPins })(Explore);
