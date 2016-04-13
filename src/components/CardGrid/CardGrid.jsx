@@ -7,7 +7,7 @@ require('./cardgrid.scss');
 export function CardGrid({ arrOfCards }) {
   return (
     <div className="card-columns card-grid">
-      { arrOfCards.map((card) => <Card key={ card } title={ card } />) }
+      { arrOfCards.map((card) => <Card key={ card._id } {...card} />) }
     </div>
   );
 }
