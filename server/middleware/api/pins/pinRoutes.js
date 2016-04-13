@@ -8,5 +8,6 @@ pinRoutes.post('/', function *() {
 });
 
 pinRoutes.post('/savePin', pinController.savePin);
+pinRoutes.get('/getPins', pinController.getPins);
 
 module.exports = pinRoutes;
