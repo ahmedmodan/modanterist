@@ -1,4 +1,4 @@
 import { Map } from 'immutable';
 
-const pinState = Map();
+const pinState = Map({ pins: [] });
 export default pinState;

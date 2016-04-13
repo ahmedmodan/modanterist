@@ -2,10 +2,10 @@ import React, { PropTypes } from 'react';
 
 require('./modanteristcard.scss');
 
-export function Card({ title }) {
+export function Card({ title, description, image_url, link, tags_ids }) {
   return (
     <div className="card">
-      <img className="card-img-top img-fluid" src={ `http://placehold.it/700x${title}00` } alt="placeholder" />
+      <img className="card-img-top img-fluid" src={ image_url } alt="placeholder" />
       <div className="card-block">
         <p className="text-muted">
           <small>this is the amount of pins</small>
@@ -13,14 +13,14 @@ export function Card({ title }) {
         <h5 className="card-title">
           <strong>{ title }</strong>
         </h5>
-        <p className="card-text">This is the card description</p>
+        <p className="card-text">{ description }</p>
       </div>
       <ul className="list-group list-group-flush">
         <li className="list-group-item">
           <p><small>this is the board the pin came from</small></p>
         </li>
         <li className="list-group-item">
-          <p className="text-muted"><small>this the tag this pin belongs to</small></p>
+          <p className="text-muted"><small>{ tags_ids.map(tag => tag) }</small></p>
         </li>
       </ul>
     </div>
@@ -28,7 +28,11 @@ export function Card({ title }) {
 }
 
 Card.propTypes = {
-  title: PropTypes.number.isRequired,
+  title: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  link: PropTypes.string.isRequired,
+  tags_ids: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+  image_url: PropTypes.string.isRequired,
 };
 
 
