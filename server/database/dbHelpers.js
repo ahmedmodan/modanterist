@@ -1,3 +1,5 @@
+'use strict';
+
 const pg = require('co-pg')(require('pg'));
 const cloudinary = require('cloudinary');
 
@@ -15,12 +17,18 @@ const queryDB = function* (query) {
   return result;
 };
 
+const tagIDReducer = (tagArray) => tagArray.reduce(
+      (formattedTagIds, tagId) =>
+      formattedTagIds === '' ? `${tagId._id}` : `${formattedTagIds}, ${tagId._id}`
+    , '');
 
 // SELECT QUERY BUILDERS
 const tagsSelectQueryBuilder = (column, params) =>
   `SELECT ${column} FROM tags WHERE tag = ANY('{${params.join(',')}}'::text[])`;
 
-const cardsSelectQueryBuilder = (column, params = 'all') => {
+
+const cardsSelectQueryBuilder = (column, params) => {
+  const formattedParams = tagIDReducer(params);
   let formattedColumns = column[0];
   if (column.length > 1) {
     formattedColumns = column.join(',');
@@ -29,7 +37,7 @@ const cardsSelectQueryBuilder = (column, params = 'all') => {
     return `SELECT ${formattedColumns} FROM cards`;
   }
   return `SELECT ${formattedColumns} FROM cards
-    WHERE tags_ids && '{${params.join(',')}}'`;
+    WHERE tags_ids && '{${formattedParams}}'`;
 };
 
 
@@ -41,10 +49,7 @@ const tagInsertQueryBuilder = (tags) => {
 };
 
 const cardInsertQueryBuilder = (values) => {
-  const tagIDs = values.tags.rows.reduce(
-    (formattedTagIds, tagId) =>
-    formattedTagIds === '' ? `${tagId._id}` : `${formattedTagIds}, ${tagId._id}`
-    , '');
+  const tagIDs = tagIDReducer(values.tags.rows);
   return `INSERT INTO cards VALUES ($$${values.title}$$,
                                     $$${values.description}$$,
                                     $$${values.image_url}$$,
@@ -56,7 +61,7 @@ const cardInsertQueryBuilder = (values) => {
 const selectQueryBuilder = (table, data) => {
   switch (table) {
     case TAGS:
-      return tagsSelectQueryBuilder(data.column, data.params.split(' '));
+      return tagsSelectQueryBuilder(data.column, data.params);
     case CARDS:
       return cardsSelectQueryBuilder(data.column, data.params);
     default:
