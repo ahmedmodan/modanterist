@@ -20,7 +20,6 @@ const savePin = function* () {
   const fields = this.request.body.fields;
   yield db.cloudinaryUpload(this.request.body.files.file.path, data => (imageData = data));
   fields.image_url = imageData.url;
-  fields.image_url = 'hello';
   yield db.queryDB(db.insertQueryBuilder(db.TAGS, fields.tags));
   fields.tags = yield db.queryDB(
     db.selectQueryBuilder(db.TAGS, { column: _id, params: fields.tags.split(' ') })
