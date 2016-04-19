@@ -1,14 +1,14 @@
 import React, { PropTypes } from 'react';
 import { reduxForm } from 'redux-form';
 
-import { actions as pinActions } from './../../redux/modules/pin';
+import { actions as pinActions } from './../../redux/modules/explore';
 
 import SmallFormInput from './../smallFormInput/smallFormInput';
 import TextArea from './../textArea/textArea';
 import ImageUploader from './../imageUploader/ImageUploader';
 
-const mapStateToProps = ({ pin }) => ({
-  imagePreview: pin.get('imagePreview')
+const mapStateToProps = ({ explore }) => ({
+  imagePreview: explore.get('imagePreview')
 });
 
 export class PinForm extends React.Component {
