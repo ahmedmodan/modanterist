@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 
 require('./modanteristcard.scss');
 
-export function Card({ title, description, image_url, link, tags_ids }) {
+export function Card({ title, description, image_url, tags_ids }) {
   return (
     <div className="card">
       <img className="card-img-top img-fluid" src={ image_url } alt="placeholder" />

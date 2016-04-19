@@ -14,6 +14,7 @@ export function TextArea(props) {
         rows={ rows }
         columns={ columns }
         { ...field }
+        value={ field.value || '' }
       />
     </div>
   );

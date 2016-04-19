@@ -7,10 +7,12 @@ const all = '*';
 function combineTagsAndCards(cards, tags) {
   return cards.map(card => {
     const newCard = card;
-    newCard.tags_ids = newCard.tags_ids.map(tagID => {
-      const newTag = tags[tagID];
-      return newTag;
-    });
+    newCard.tags_ids = newCard.tags_ids.reduce((tagArray, tag) => {
+      if (tags[tag]) {
+        tagArray.push(tags[tag]);
+      }
+      return tagArray;
+    }, []);
     return newCard;
   });
 }
@@ -18,11 +20,25 @@ function combineTagsAndCards(cards, tags) {
 const savePin = function* () {
   let imageData;
   const fields = this.request.body.fields;
+  const tags = fields.tags.split(' ');
+  const availableTags = yield db.queryDB(
+    db.selectQueryBuilder(db.TAGS, {
+      column: all,
+      params: tags
+    })
+  );
+  const extractedTags = availableTags.rows.map(tagRow => tagRow.tag);
+  const tagsToSave = tags.filter(tag => extractedTags.indexOf(tag) === -1).join(' ');
   yield db.cloudinaryUpload(this.request.body.files.file.path, data => (imageData = data));
   fields.image_url = imageData.url;
-  yield db.queryDB(db.insertQueryBuilder(db.TAGS, fields.tags));
+  yield db.queryDB(
+    db.insertQueryBuilder(db.TAGS, tagsToSave)
+  );
   fields.tags = yield db.queryDB(
-    db.selectQueryBuilder(db.TAGS, { column: _id, params: fields.tags.split(' ') })
+    db.selectQueryBuilder(db.TAGS, {
+      column: _id,
+      params: fields.tags.split(' ')
+    })
   );
   const result = yield db.queryDB(db.insertQueryBuilder(db.CARDS, fields));
   if (result.command === 'INSERT' && result.rowCount === 1) {
@@ -33,15 +49,18 @@ const savePin = function* () {
 const getPins = function* () {
   const tags = this.request.query.tags.split(',');
   const tagQuery = yield db.queryDB(
-    db.selectQueryBuilder(db.TAGS, { column: all, params: tags })
+    db.selectQueryBuilder(db.TAGS, {
+      column: all,
+      params: tags
+    })
   );
-
-  const tagsAndIDs = tagQuery.rows.reduce((tagsObject, tag) => {
-    const tagsObj = tagsObject;
-    tagsObj[tag._id] = tag.tag;
-    return tagsObj;
-  }, {});
-
+  const tagsAndIDs = tagQuery.rows.reduce(
+    (tagsObject, tag) => {
+      const tagsObj = tagsObject;
+      tagsObj[tag._id] = tag.tag;
+      return tagsObj;
+    }, {}
+  );
   const cardsQuery = yield db.queryDB(
     db.selectQueryBuilder(db.CARDS, {
       column: [all],

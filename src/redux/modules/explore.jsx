@@ -1,19 +1,31 @@
-import pinState from './../states/pinState';
+import exploreState from './../states/exploreState';
+import { Map } from 'immutable';
 
 
 export const CLOSE_MODAL = 'CLOSE_MODAL';
+export const OPEN_MODAL = 'OPEN_MODAL';
 export const FILE_PREVIEW = 'FILE_PREVIEW';
 export const SET_PIN_STATE = 'SET_PIN_STATE';
 
 
-export function logResponse(response) {
-  console.log('hey');
-  console.log('this is the response', response);
+// export function logResponse(response) {
+//   console.log('hey');
+//   console.log('this is the response', response);
+// }
+
+export function openModal(payload = true) {
+  return { type: OPEN_MODAL,
+           payload };
 }
 
-// export function closeModal() {
-//   action:
-// }
+export function closeModal(response) {
+  let payload;
+  if (response.status === 200) {
+    payload = false;
+  }
+  return { type: CLOSE_MODAL,
+           payload };
+}
 
 export function createFormData(payload) {
   const formData = new FormData();
@@ -27,6 +39,11 @@ export function createFormData(payload) {
   return formData;
 }
 
+export function setPinState(payload) {
+  return { type: SET_PIN_STATE,
+           payload };
+}
+
 export function savePin(payload) {
   const formData = createFormData(payload);
   return dispatch => fetch('/api/pins/savePin', {
@@ -34,14 +51,9 @@ export function savePin(payload) {
     body: formData
   }).then(response => {
     if (response.status === 200) {
-      dispatch(logResponse(response));
+      dispatch(closeModal(response));
     }
   });
-}
-
-export function setPinState(payload) {
-  return { type: SET_PIN_STATE,
-           payload };
 }
 
 export function getPins(payload) {
@@ -60,12 +72,19 @@ export const actions = {
   savePin
 };
 
-export default function pinReducer(state = pinState, action) {
+export default function pinReducer(state = exploreState, action) {
   switch (action.type) {
+    case CLOSE_MODAL:
+      return state.set('modalOpenStatus', { status: action.payload });
+    case OPEN_MODAL:
+      return state.set('modalOpenStatus', { status: action.payload });
     case FILE_PREVIEW:
       return state.set('imagePreview', action.payload);
     case SET_PIN_STATE:
-      return state.set('pins', action.payload);
+      return state.merge(
+          Map({ imagePreview: undefined,
+                pins: action.payload })
+        );
     default:
       return state;
   }

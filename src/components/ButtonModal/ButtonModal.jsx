@@ -1,13 +1,11 @@
 import React, { PropTypes } from 'react';
 
-export function ButtonModal(props) {
-  const { buttonName, modalTitle, modalBody } = props;
+export function ButtonModal({ buttonName, modalTitle, modalBody, buttonAction }) {
   return (
     <div>
       <button className="btn btn-secondary"
         id="pin-button"
-        data-toggle="modal"
-        data-target="#myModal"
+        onClick={ buttonAction }
       >
         { buttonName }
       </button>
@@ -39,7 +37,8 @@ ButtonModal.propTypes = {
   buttonName: PropTypes.string.isRequired,
   modalTitle: PropTypes.string.isRequired,
   modalBody: PropTypes.element.isRequired,
-  saveButtonName: PropTypes.string.isRequired
+  saveButtonName: PropTypes.string.isRequired,
+  buttonAction: PropTypes.func.isRequired,
 };
 
 export default ButtonModal;
