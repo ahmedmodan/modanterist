@@ -18,9 +18,15 @@ function combineTagsAndCards(cards, tags) {
 const savePin = function* () {
   let imageData;
   const fields = this.request.body.fields;
+  const tags = fields.tags.split(' ');
+  const availableTags = yield db.queryDB(
+    db.selectQueryBuilder(db.TAGS, { column: all, params: tags })
+  );
+  const extractedTags = availableTags.rows.map(tagRow => tagRow.tag);
+  const tagsToSave = tags.filter(tag => extractedTags.indexOf(tag) === -1).join(' ');
   yield db.cloudinaryUpload(this.request.body.files.file.path, data => (imageData = data));
   fields.image_url = imageData.url;
-  yield db.queryDB(db.insertQueryBuilder(db.TAGS, fields.tags));
+  yield db.queryDB(db.insertQueryBuilder(db.TAGS, tagsToSave));
   fields.tags = yield db.queryDB(
     db.selectQueryBuilder(db.TAGS, { column: _id, params: fields.tags.split(' ') })
   );
