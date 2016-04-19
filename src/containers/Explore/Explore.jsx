@@ -20,7 +20,7 @@ export class Explore extends React.Component {
   static propTypes = {
     location: PropTypes.object.isRequired,
     pins: PropTypes.array.isRequired,
-    modalOpenStatus: PropTypes.Object.isRequired,
+    modalOpenStatus: PropTypes.object.isRequired,
     getPins: PropTypes.func.isRequired,
     openModal: PropTypes.func.isRequired,
   }
