@@ -49,7 +49,8 @@ const webpackConfiguration = {
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.ProvidePlugin({
-      'window.Tether': 'tether'
+      'window.Tether': 'tether',
+      $: 'jquery'
     }),
     new HtmlWebpackPlugin({
       template: 'index.html'
