@@ -48,7 +48,6 @@ export class Explore extends React.Component {
   }
 
   render() {
-    console.log('this.props.pins', this.props);
     return (
       <div className="card-grid-container">
         <NavBar location={this.props.location} />

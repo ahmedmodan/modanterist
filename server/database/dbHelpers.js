@@ -90,8 +90,6 @@ const cloudinaryUpload = (file, callback) => done => {
 };
 
 
-
-
 module.exports = {
   CARDS,
   TAGS,

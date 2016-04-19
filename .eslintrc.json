@@ -4,7 +4,9 @@
   "rules": {
     "comma-dangle": 0,
     "new-cap": 0,
-    "camelcase": 0
+    "camelcase": 0,
+    "strict": 0,
+    "func-names": 0
   },
   "globals": {
     "$": true

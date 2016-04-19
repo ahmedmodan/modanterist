@@ -8,10 +8,10 @@ export const FILE_PREVIEW = 'FILE_PREVIEW';
 export const SET_PIN_STATE = 'SET_PIN_STATE';
 
 
-export function logResponse(response) {
-  console.log('hey');
-  console.log('this is the response', response);
-}
+// export function logResponse(response) {
+//   console.log('hey');
+//   console.log('this is the response', response);
+// }
 
 export function openModal(payload = true) {
   return { type: OPEN_MODAL,
