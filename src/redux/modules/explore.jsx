@@ -1,8 +1,8 @@
 import exploreState from './../states/exploreState';
-import { Map } from 'immutable';
+import { Map, List } from 'immutable';
 
 
-export const CLOSE_MODAL = 'CLOSE_MODAL';
+export const CLOSE_MODAL_AND_UPDATE_PIN = 'CLOSE_MODAL_AND_UPDATE_PIN';
 export const OPEN_MODAL = 'OPEN_MODAL';
 export const FILE_PREVIEW = 'FILE_PREVIEW';
 export const SET_PIN_STATE = 'SET_PIN_STATE';
@@ -18,12 +18,15 @@ export function openModal(payload = true) {
            payload };
 }
 
-export function closeModal(response) {
-  let payload;
-  if (response.status === 200) {
-    payload = false;
+export function closeModalAndUpdatePin(data, status) {
+  const payload = {
+    savedPin: {},
+    modalStatus: false
+  };
+  if (status === 200) {
+    payload.savedPin = data[0];
   }
-  return { type: CLOSE_MODAL,
+  return { type: CLOSE_MODAL_AND_UPDATE_PIN,
            payload };
 }
 
@@ -46,14 +49,15 @@ export function setPinState(payload) {
 
 export function savePin(payload) {
   const formData = createFormData(payload);
+  const responseStatus = { status: 404 };
   return dispatch => fetch('/api/pins/savePin', {
     method: 'POST',
     body: formData
   }).then(response => {
-    if (response.status === 200) {
-      dispatch(closeModal(response));
-    }
-  });
+    responseStatus.status = response.status;
+    return response.json();
+  })
+    .then(data => dispatch(closeModalAndUpdatePin(data, responseStatus.status)));
 }
 
 export function getPins(payload) {
@@ -72,10 +76,14 @@ export const actions = {
   savePin
 };
 
-export default function pinReducer(state = exploreState, action) {
+export default function exploreReducer(state = exploreState, action) {
   switch (action.type) {
-    case CLOSE_MODAL:
-      return state.set('modalOpenStatus', { status: action.payload });
+    case CLOSE_MODAL_AND_UPDATE_PIN:
+      // return state.set('modalOpenStatus', { status: action.payload });
+      return state.merge(
+        Map({ modalOpenStatus: { status: action.payload.modalStatus },
+              pins: state.get('pins').unshift(action.payload.savedPin) })
+      );
     case OPEN_MODAL:
       return state.set('modalOpenStatus', { status: action.payload });
     case FILE_PREVIEW:
@@ -83,7 +91,7 @@ export default function pinReducer(state = exploreState, action) {
     case SET_PIN_STATE:
       return state.merge(
           Map({ imagePreview: undefined,
-                pins: action.payload })
+                pins: List(action.payload) })
         );
     default:
       return state;

@@ -19,7 +19,7 @@ const mapStateToProps = ({ explore }) => ({
 export class Explore extends React.Component {
   static propTypes = {
     location: PropTypes.object.isRequired,
-    pins: PropTypes.array.isRequired,
+    pins: PropTypes.object.isRequired,
     modalOpenStatus: PropTypes.object.isRequired,
     getPins: PropTypes.func.isRequired,
     openModal: PropTypes.func.isRequired,
