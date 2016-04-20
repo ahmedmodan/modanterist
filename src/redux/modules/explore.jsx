@@ -79,7 +79,6 @@ export const actions = {
 export default function exploreReducer(state = exploreState, action) {
   switch (action.type) {
     case CLOSE_MODAL_AND_UPDATE_PIN:
-      // return state.set('modalOpenStatus', { status: action.payload });
       return state.merge(
         Map({ modalOpenStatus: { status: action.payload.modalStatus },
               pins: state.get('pins').unshift(action.payload.savedPin) })
