@@ -41,8 +41,16 @@ const savePin = function* () {
     })
   );
   const result = yield db.queryDB(db.insertQueryBuilder(db.CARDS, fields));
+  const savedCard = yield db.queryDB(
+    db.selectQueryBuilder(db.SINGLE_CARD, {
+      column: all,
+      params: fields.image_url
+    })
+  );
   if (result.command === 'INSERT' && result.rowCount === 1) {
+    fields.tags = tags;
     this.response.status = 200;
+    this.response.body = combineTagsAndCards([savedCard.rows[0]], tags);
   }
 };
 

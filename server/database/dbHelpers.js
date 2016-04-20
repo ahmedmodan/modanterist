@@ -7,6 +7,7 @@ const connectionString = process.env.DB;
 
 const CARDS = 'CARDS';
 const TAGS = 'TAGS';
+const SINGLE_CARD = 'SINGLE_CARD';
 
 const queryDB = function* (query) {
   const connectionResults = yield pg.connectPromise(connectionString);
@@ -40,6 +41,9 @@ const cardsSelectQueryBuilder = (column, params) => {
     WHERE tags_ids && '{${formattedParams}}'`;
 };
 
+const singleCardSelectQueryBuilder = (column, params) =>
+  `SELECT ${column} FROM cards WHERE cards.image_url = '${params}'`;
+
 
 // INSERT QUERY BUILDERS
 const tagInsertQueryBuilder = (tags) => {
@@ -62,6 +66,8 @@ const selectQueryBuilder = (table, data) => {
   switch (table) {
     case TAGS:
       return tagsSelectQueryBuilder(data.column, data.params);
+    case SINGLE_CARD:
+      return singleCardSelectQueryBuilder(data.column, data.params);
     case CARDS:
       return cardsSelectQueryBuilder(data.column, data.params);
     default:
@@ -91,6 +97,7 @@ const cloudinaryUpload = (file, callback) => done => {
 
 
 module.exports = {
+  SINGLE_CARD,
   CARDS,
   TAGS,
   queryDB,
