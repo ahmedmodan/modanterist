@@ -37,7 +37,7 @@ const savePin = function* () {
   fields.tags = yield db.queryDB(
     db.selectQueryBuilder(db.TAGS, {
       column: _id,
-      params: fields.tags.split(' ')
+      params: tags
     })
   );
   const result = yield db.queryDB(db.insertQueryBuilder(db.CARDS, fields));

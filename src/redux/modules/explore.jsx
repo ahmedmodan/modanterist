@@ -59,7 +59,7 @@ export function savePin(payload) {
 export function getPins(payload) {
   return dispatch => fetch(`/api/pins/getPins?tags=${payload.join(',')}`)
     .then(response => response.json())
-    .then(body => dispatch(setPinState(body)));
+    .then(body => dispatch(setPinState(body.reverse())));
 }
 
 export function renderPreview(payload) {
