@@ -3,24 +3,21 @@ import React, { PropTypes } from 'react';
 require('./modanteristcard.scss');
 
 export function Card({ title, description, image_url, tags_ids }) {
+  const tags = tags_ids.join(' ');
   return (
     <div className="card">
       <img className="card-img-top img-fluid" src={ image_url } alt="placeholder" />
       <div className="card-block">
-        <p className="text-muted">
-          <small>this is the amount of pins</small>
-        </p>
         <h5 className="card-title">
           <strong>{ title }</strong>
         </h5>
-        <p className="card-text">{ description }</p>
       </div>
       <ul className="list-group list-group-flush">
         <li className="list-group-item">
-          <p><small>this is the board the pin came from</small></p>
+          <p className="card-text">{ description }</p>
         </li>
         <li className="list-group-item">
-          <p className="text-muted"><small>{ tags_ids.map(tag => tag) }</small></p>
+          <p className="text-muted"><small>{ tags }</small></p>
         </li>
       </ul>
     </div>

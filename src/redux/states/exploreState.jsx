@@ -1,7 +1,7 @@
-import { Map } from 'immutable';
+import { Map, List } from 'immutable';
 
 const exploreState = Map({
-  pins: [],
+  pins: List([]),
   modalOpenStatus: { status: false }
 });
 export default exploreState;

@@ -13,7 +13,7 @@ export function CardGrid({ arrOfCards }) {
 }
 
 CardGrid.propTypes = {
-  arrOfCards: PropTypes.array.isRequired
+  arrOfCards: PropTypes.object.isRequired
 };
 
 export default CardGrid;
