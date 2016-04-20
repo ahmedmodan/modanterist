@@ -2,16 +2,21 @@ import exploreState from './../states/exploreState';
 import { Map, List } from 'immutable';
 
 
-export const CLOSE_MODAL_AND_UPDATE_PIN = 'CLOSE_MODAL_AND_UPDATE_PIN';
-export const OPEN_MODAL = 'OPEN_MODAL';
-export const FILE_PREVIEW = 'FILE_PREVIEW';
-export const SET_PIN_STATE = 'SET_PIN_STATE';
+export const CLOSE_MODAL_AND_UPDATE_PIN = Symbol('CLOSE_MODAL_AND_UPDATE_PIN');
+export const OPEN_MODAL = Symbol('OPEN_MODAL');
+export const SET_CLOSE_STATE = Symbol('SET_CLOSE_STATE');
+export const FILE_PREVIEW = Symbol('FILE_PREVIEW');
+export const SET_PIN_STATE = Symbol('SET_PIN_STATE');
 
 
 // export function logResponse(response) {
 //   console.log('hey');
 //   console.log('this is the response', response);
 // }
+export function setCloseState(payload = false) {
+  return { type: SET_CLOSE_STATE,
+           payload };
+}
 
 export function openModal(payload = true) {
   return { type: OPEN_MODAL,
@@ -78,6 +83,8 @@ export const actions = {
 
 export default function exploreReducer(state = exploreState, action) {
   switch (action.type) {
+    case SET_CLOSE_STATE:
+      return state.set('modalOpenStatus', { status: action.payload });
     case CLOSE_MODAL_AND_UPDATE_PIN:
       return state.merge(
         Map({ modalOpenStatus: { status: action.payload.modalStatus },

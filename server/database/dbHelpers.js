@@ -5,9 +5,9 @@ const cloudinary = require('cloudinary');
 
 const connectionString = process.env.DB;
 
-const CARDS = 'CARDS';
-const TAGS = 'TAGS';
-const SINGLE_CARD = 'SINGLE_CARD';
+const CARDS = Symbol('CARDS');
+const TAGS = Symbol('TAGS');
+const SINGLE_CARD = Symbol('SINGLE_CARD');
 
 const queryDB = function* (query) {
   const connectionResults = yield pg.connectPromise(connectionString);

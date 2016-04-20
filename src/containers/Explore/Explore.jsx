@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 
-import { getPins, openModal } from './../../redux/modules/explore';
+import { getPins, openModal, setCloseState } from './../../redux/modules/explore';
 
 import NavBar from './../../components/navbar/navbar';
 import CardGrid from './../../components/CardGrid/CardGrid';
@@ -23,11 +23,13 @@ export class Explore extends React.Component {
     modalOpenStatus: PropTypes.object.isRequired,
     getPins: PropTypes.func.isRequired,
     openModal: PropTypes.func.isRequired,
+    setCloseState: PropTypes.func.isRequired,
   }
 
 
   componentWillMount() {
     this.props.getPins(['art', 'diy', 'food', 'fitness']);
+    this.props.setCloseState();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -38,6 +40,11 @@ export class Explore extends React.Component {
       $('#myModal').modal('show');
     }
   }
+
+  componentWillUnmount() {
+    this.props.setCloseState();
+  }
+
 
   handleModalOpen() {
     this.props.openModal();
@@ -64,4 +71,4 @@ export class Explore extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, { getPins, openModal })(Explore);
+export default connect(mapStateToProps, { getPins, openModal, setCloseState })(Explore);
