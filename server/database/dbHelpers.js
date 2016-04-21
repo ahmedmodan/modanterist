@@ -72,7 +72,7 @@ const selectQueryBuilder = (table, data) => {
       return cardsSelectQueryBuilder(data.column, data.params);
     default:
     // TODO: CHANGE DEFAULT RETURN STATEMENT
-      return null;
+      return undefined;
   }
 };
 
@@ -84,7 +84,7 @@ const insertQueryBuilder = (table, values) => {
       return tagInsertQueryBuilder(values);
     default:
     // TODO: CHANGE DEFAULT RETURN STATEMENT
-      return null;
+      return undefined;
   }
 };
 
