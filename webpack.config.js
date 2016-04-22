@@ -65,9 +65,16 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 if (process.env.NODE_ENV === 'production') {
+  webpackConfiguration.devtool = 'source-map';
+  const productionENV = new webpack.DefinePlugin({
+    'process.env': {
+      NODE_ENV: JSON.stringify('production')
+    }
+  });
   const webpackNoErrors = new webpack.NoErrorsPlugin();
   webpackConfiguration.plugins.push(
-    webpackNoErrors
+    webpackNoErrors,
+    productionENV
   );
 }
 

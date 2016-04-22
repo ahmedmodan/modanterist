@@ -10,11 +10,13 @@
     "node": "5.7.0"
   },
   "scripts": {
-    "test": "cp .babelrc.test .babelrc && node_modules/.bin/karma start karma.config.js",
+    "test": "NODE_ENV=test node_modules/.bin/karma start karma.config.js",
     "test:dev": "npm run test -- --watch",
-    "start": "cp .babelrc.dev .babelrc && npm run clean && webpack --progress && nodemon server/server.js",
     "clean": "rm -rf dist",
-    "deploy": "npm run test && npm run clean && webpack --devtool source-map --progress -p"
+    "webpack-prod": "NODE_ENV=production webpack --progress -p",
+    "server-prod": "NODE_ENV=production node server/server.js",
+    "dev": "npm run clean && NODE_ENV=development webpack --progress && nodemon server/server.js",
+    "start": "npm run clean && npm run webpack-prod && npm run test && npm run server-prod"
   },
   "repository": {
     "type": "git",
