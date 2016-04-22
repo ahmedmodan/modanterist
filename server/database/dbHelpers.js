@@ -3,7 +3,7 @@
 const pg = require('co-pg')(require('pg'));
 const cloudinary = require('cloudinary');
 
-const connectionString = process.env.DB;
+const connectionString = process.env.DATABASE_URL;
 
 const CARDS = Symbol('CARDS');
 const TAGS = Symbol('TAGS');
