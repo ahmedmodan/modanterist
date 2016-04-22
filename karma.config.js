@@ -1,5 +1,7 @@
 const argv = require('yargs').argv;
 const path = require('path');
+const webpack = require('webpack');
+
 
 module.exports = function (config) {
   config.set({
@@ -51,7 +53,8 @@ module.exports = function (config) {
         ],
         // run babel loader for our tests
         loaders: [
-          { test: /\.jsx?$/,
+          {
+            test: /\.jsx?$/,
             exclude: /node_modules/,
             loader: 'babel',
             query: {
@@ -67,16 +70,9 @@ module.exports = function (config) {
             loaders: ['style', 'css', 'postcss', 'sass']
           },
           {
-            test: /\.woff2?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-            loader: 'url?limit=10000'
-          },
-          {
-            test: /\.(ttf|eot|svg)(\?[\s\S]+)?$/,
-            loader: 'file'
-          },
-      { test: /bootstrap-sass\/assets\/javascripts\//,
-        loader: 'imports?jQuery=jquery'
-      }
+            test: /bootstrap[\/\\]dist[\/\\]js[\/\\]umd[\/\\]/,
+            loader: 'imports?jQuery=jquery'
+          }
         ],
       },
       // required for enzyme to work properly
@@ -97,7 +93,11 @@ module.exports = function (config) {
       'karma-webpack',
       'karma-phantomjs-launcher',
       'karma-spec-reporter',
-      'karma-sourcemap-loader'
+      'karma-sourcemap-loader',
+      new webpack.ProvidePlugin({
+        'window.Tether': 'tether',
+        $: 'jquery'
+      })
     ]
   });
 };
