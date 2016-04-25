@@ -34,7 +34,7 @@ const webpackConfiguration = {
       {
         test: /bootstrap[\/\\]dist[\/\\]js[\/\\]umd[\/\\]/,
         loader: 'imports?jQuery=jquery'
-      }],
+      }]
   },
   resolve: {
     extensions: ['', '.js', '.jsx']
@@ -71,8 +71,10 @@ if (process.env.NODE_ENV === 'production') {
       NODE_ENV: JSON.stringify('production')
     }
   });
+  const webpackDedupe = new webpack.optimize.DedupePlugin();
   const webpackNoErrors = new webpack.NoErrorsPlugin();
   webpackConfiguration.plugins.push(
+    webpackDedupe,
     webpackNoErrors,
     productionENV
   );
