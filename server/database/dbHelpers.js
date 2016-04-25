@@ -1,4 +1,4 @@
-'use strict';
+'use strict'; // eslint-disable-line strict
 
 const pg = require('co-pg')(require('pg'));
 const cloudinary = require('cloudinary');
