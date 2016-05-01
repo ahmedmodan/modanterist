@@ -52,7 +52,9 @@ const webpackConfiguration = {
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.ProvidePlugin({
-      $: 'jquery'
+      'window.jQuery': 'jquery',
+      'window.$': 'jquery',
+      'window.$.velocity': 'velocity-animate/velocity.js'
     }),
     new HtmlWebpackPlugin({
       template: 'index.html'
