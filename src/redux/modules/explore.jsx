@@ -88,7 +88,8 @@ export default function exploreReducer(state = exploreState, action) {
     case CLOSE_MODAL_AND_UPDATE_PIN:
       return state.merge(
         Map({ modalOpenStatus: { status: action.payload.modalStatus },
-              pins: state.get('pins').unshift(action.payload.savedPin) })
+              pins: state.get('pins').unshift(action.payload.savedPin),
+              imagePreview: undefined })
       );
     case OPEN_MODAL:
       return state.set('modalOpenStatus', { status: action.payload });

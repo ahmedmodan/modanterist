@@ -32,12 +32,17 @@ export class Explore extends React.Component {
     this.props.setCloseState();
   }
 
+  componentDidMount() {
+
+  }
+
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.modalOpenStatus.status === false) {
-      $('#myModal').modal('hide');
+      $('#modal1').closeModal();
     }
     if (nextProps.modalOpenStatus.status === true) {
-      $('#myModal').modal('show');
+      $('#modal1').openModal();
     }
   }
 
@@ -54,18 +59,23 @@ export class Explore extends React.Component {
     return <PinForm />;
   }
 
+  get saveButton() {
+    return <i className="material-icons">add</i>;
+  }
+
   render() {
     return (
-      <div className="card-grid-container">
+      <div>
         <NavBar location={this.props.location} />
-        <CardGrid arrOfCards={ this.props.pins } />
-        <ButtonModal className="pin-button"
-          buttonName="PIN"
-          buttonAction={ ::this.handleModalOpen }
-          modalTitle="Create a Pin"
-          saveButtonName="Save Pin"
-          modalBody={ this.pinFormForModal }
-        />
+        <div className="card-grid-container">
+          <CardGrid arrOfCards={ this.props.pins } />
+          <ButtonModal className="pin-button"
+            buttonName={ this.saveButton }
+            buttonAction={ ::this.handleModalOpen }
+            modalTitle="Create a Pin"
+            modalBody={ this.pinFormForModal }
+          />
+        </div>
       </div>
     );
   }
