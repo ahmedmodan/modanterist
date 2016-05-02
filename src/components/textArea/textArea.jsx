@@ -3,18 +3,19 @@ import React, { PropTypes } from 'react';
 export function TextArea(props) {
   const { field, inputLabel, optionalDescriptor, rows, columns } = props;
   return (
-    <div className="form-group">
+    <div className="input-field">
       <label htmlFor="text-area-component">
         { inputLabel }
-        <small className="text-muted">{ optionalDescriptor }</small>
+        <small>{ optionalDescriptor }</small>
       </label>
       <textarea
-        className="form-control"
+        className="materialize-textarea"
         id="text-area-component"
         rows={ rows }
         columns={ columns }
         { ...field }
         value={ field.value || '' }
+        spellCheck="true"
       />
     </div>
   );
