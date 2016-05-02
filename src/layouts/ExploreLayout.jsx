@@ -6,7 +6,7 @@ require('./layouts.scss');
 export function ExploreLayout({ children }) {
   return (
     <div>
-      <div className="row explore-content">
+      <div className="explore-content">
         { children }
       </div>
     </div>
