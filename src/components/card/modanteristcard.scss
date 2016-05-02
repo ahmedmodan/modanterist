@@ -1,8 +1,6 @@
 .card {
   max-width: 16rem;
-  li {
-    p {
-      margin-bottom: 0;
-    }
+  .card-action {
+    z-index: 1;
   }
 }
