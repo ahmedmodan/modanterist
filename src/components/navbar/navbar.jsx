@@ -25,16 +25,14 @@ export class NavBar extends React.Component {
 
   render() {
     return (
-      <div>
-        <nav className="navbar navbar-light bg-faded navbar-fixed-top">
-          <Link to="/" className="navbar-brand">Modanterist</Link>
-          <ul className="nav navbar-nav">
-            <li className="pull-xs-right">
+        <nav className="nav-wrapper">
+          <Link to="/" className="brand-logo">Modanterist</Link>
+          <ul className="right hide-on-med-and-down">
+            <li>
               { this.loginLogout }
             </li>
           </ul>
         </nav>
-      </div>
     );
   }
 }
