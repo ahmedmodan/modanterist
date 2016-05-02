@@ -6,20 +6,18 @@ export function Card({ title, description, image_url, tags_ids }) {
   const tags = tags_ids.join(' ');
   return (
     <div className="card">
-      <img className="card-img-top img-fluid" src={ image_url } alt="placeholder" />
-      <div className="card-block">
-        <h5 className="card-title">
-          <strong>{ title }</strong>
-        </h5>
+      <div className="card-image waves-effect waves-block waves-light">
+        <img src={ image_url } alt={ title } />
+        <span className="card-title">
+          { title }
+        </span>
       </div>
-      <ul className="list-group list-group-flush">
-        <li className="list-group-item">
-          <p className="card-text">{ description }</p>
-        </li>
-        <li className="list-group-item">
-          <p className="text-muted"><small>{ tags }</small></p>
-        </li>
-      </ul>
+      <div className="card-content">
+        <p>{ description }</p>
+      </div>
+      <div className="card-action">
+        { tags }
+      </div>
     </div>
   );
 }
