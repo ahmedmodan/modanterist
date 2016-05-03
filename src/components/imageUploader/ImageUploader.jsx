@@ -4,13 +4,13 @@ import DropZone from 'react-DropZone';
 export function ImageUploader({ field, imageHandler, filePreview }) {
   if (!filePreview) {
     return (
-      <DropZone className="form-group" { ...field } onDrop={ imageHandler }>
+      <DropZone className="input-field" { ...field } onDrop={ imageHandler }>
         <div>Drag and drop or click below to select an image.</div>
-        <img className="img-fluid" src="http://placehold.it/700x300" />
+        <img className="responsive-img" src="http://placehold.it/700x300" />
       </DropZone>
     );
   }
-  return <img className="img-fluid"src={ filePreview } />;
+  return <img className="responsive-img" src={ filePreview } />;
 }
 
 ImageUploader.propTypes = {

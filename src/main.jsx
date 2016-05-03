@@ -1,5 +1,7 @@
 import 'es6-promise';
 import 'whatwg-fetch';
+import 'materialize-css/bin/materialize.css';
+import 'materialize-css/bin/materialize.js';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './containers/App/App';

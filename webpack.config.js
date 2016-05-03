@@ -8,8 +8,6 @@ const ROOT_PATH = path.resolve(__dirname);
 const webpackConfiguration = {
   devtool: 'cheap-module-source-map',
   entry: [
-    'bootstrap-loader',
-    'tether',
     path.resolve(ROOT_PATH, 'src/main.jsx')
   ],
   module: {
@@ -32,9 +30,14 @@ const webpackConfiguration = {
         loaders: ['style', 'css', 'postcss', 'sass']
       },
       {
-        test: /bootstrap[\/\\]dist[\/\\]js[\/\\]umd[\/\\]/,
-        loader: 'imports?jQuery=jquery'
-      }],
+        test: /\.(woff2?|svg)$/,
+        loader: 'url?limit=10000'
+      },
+      {
+        test: /\.(ttf|eot)$/,
+        loader: 'file'
+      }
+    ]
   },
   resolve: {
     extensions: ['', '.js', '.jsx']
@@ -49,8 +52,9 @@ const webpackConfiguration = {
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.ProvidePlugin({
-      'window.Tether': 'tether',
-      $: 'jquery'
+      'window.jQuery': 'jquery',
+      'window.$': 'jquery',
+      'window.$.velocity': 'velocity-animate/velocity.js'
     }),
     new HtmlWebpackPlugin({
       template: 'index.html'
@@ -71,8 +75,10 @@ if (process.env.NODE_ENV === 'production') {
       NODE_ENV: JSON.stringify('production')
     }
   });
+  const webpackDedupe = new webpack.optimize.DedupePlugin();
   const webpackNoErrors = new webpack.NoErrorsPlugin();
   webpackConfiguration.plugins.push(
+    webpackDedupe,
     webpackNoErrors,
     productionENV
   );

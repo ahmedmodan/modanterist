@@ -3,13 +3,12 @@ import React, { PropTypes } from 'react';
 export function SmallFormInput(props) {
   const { field, inputLabel, optionalDescriptor } = props;
   return (
-    <div className="form-group">
+    <div className="input-field">
       <label htmlFor="input-small">
         { inputLabel }
-        <small className="text-muted">{ optionalDescriptor }</small>
+        <small>{ optionalDescriptor }</small>
       </label>
       <input type="text"
-        className="form-control form-control-sm"
         id="input-small"
         { ...field }
       />

@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 
 function CoreLayout({ children }) {
   return (
-    <div className="container-fluid">
+    <div>
       {children}
     </div>
   );

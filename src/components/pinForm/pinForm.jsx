@@ -31,7 +31,7 @@ export class PinForm extends React.Component {
     }, handleSubmit, imagePreview } = this.props;
 
     return (
-      <form className="form-horizontal" onSubmit={ handleSubmit(this.props.savePin) } >
+      <form onSubmit={ handleSubmit(this.props.savePin) } >
         <ImageUploader
           field={ image }
           imageHandler={ ::this.handleImage }
@@ -43,7 +43,7 @@ export class PinForm extends React.Component {
         <SmallFormInput field={ tags } inputLabel="Tags"
           optionalDescriptor=" separated by a space"
         />
-        <button type="submit" className="btn btn-primary">Save Pin</button>
+        <button type="submit" className="btn waves-effect waves-light">Save Pin</button>
       </form>
     );
   }
