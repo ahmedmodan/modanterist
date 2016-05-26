@@ -1,5 +1,5 @@
 # Modanterist
-A very Pinterest Clone in React + Redux.
+A very basic Pinterest Clone in React + Redux.
 
 This is a personal project and serves as a testing ground for any and all technologies I want to try out.
 
