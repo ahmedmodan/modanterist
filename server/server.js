@@ -12,9 +12,9 @@ if (process.env.NODE_ENV !== 'production') {
   const webpack = require('webpack');
   const webpackConfig = require('../webpack.config');
   const compiler = webpack(webpackConfig);
-  const devMiddlware = require('./middleware/dev-middleware');
-  app.use(devMiddlware.webpackDevMiddleware(webpackConfig, compiler));
-  app.use(devMiddlware.webpackHotMiddleware(compiler));
+  const devMiddleware = require('./middleware/dev-middleware');
+  app.use(devMiddleware.webpackDevMiddleware(webpackConfig, compiler));
+  app.use(devMiddleware.webpackHotMiddleware(compiler));
 }
 
 cloudinary.config({
