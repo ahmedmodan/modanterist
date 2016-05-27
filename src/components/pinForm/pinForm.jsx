@@ -32,17 +32,27 @@ export class PinForm extends React.Component {
 
     return (
       <form onSubmit={ handleSubmit(this.props.savePin) } >
-        <ImageUploader
-          field={ image }
-          imageHandler={ ::this.handleImage }
-          filePreview={ imagePreview }
-        />
-        <SmallFormInput field={ title } inputLabel="Title" />
-        <TextArea field={ description } inputLabel="Description" rows={ 3 } />
-        <SmallFormInput field={ link } inputLabel="Link" />
-        <SmallFormInput field={ tags } inputLabel="Tags"
-          optionalDescriptor=" separated by a space"
-        />
+        <div className="col s10 offset-s1">
+          <ImageUploader
+            field={ image }
+            imageHandler={ ::this.handleImage }
+            filePreview={ imagePreview }
+          />
+        </div>
+        <div className="col s12">
+          <SmallFormInput field={ title } inputLabel="Title" />
+        </div>
+        <div className="col s12">
+          <TextArea field={ description } inputLabel="Description" rows={ 3 } />
+        </div>
+        <div className="col s12">
+          <SmallFormInput field={ link } inputLabel="Link" />
+        </div>
+        <div className="col s12">
+          <SmallFormInput field={ tags } inputLabel="Tags"
+            optionalDescriptor=" separated by a space"
+          />
+        </div>
         <button type="submit" className="btn waves-effect waves-light">Save Pin</button>
       </form>
     );
