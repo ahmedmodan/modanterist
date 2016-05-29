@@ -1,10 +1,11 @@
 import exploreState from './../states/exploreState';
 import { Map, List } from 'immutable';
+import { createFormData } from './../../utils/helpers';
 
 
 export const CLOSE_MODAL_AND_UPDATE_PIN = Symbol('CLOSE_MODAL_AND_UPDATE_PIN');
 export const OPEN_MODAL = Symbol('OPEN_MODAL');
-export const SET_CLOSE_STATE = Symbol('SET_CLOSE_STATE');
+export const SET_MODAL_CLOSE_STATE = Symbol('SET_MODAL_CLOSE_STATE');
 export const FILE_PREVIEW = Symbol('FILE_PREVIEW');
 export const SET_PIN_STATE = Symbol('SET_PIN_STATE');
 
@@ -13,8 +14,8 @@ export const SET_PIN_STATE = Symbol('SET_PIN_STATE');
 //   console.log('hey');
 //   console.log('this is the response', response);
 // }
-export function setCloseState(payload = false) {
-  return { type: SET_CLOSE_STATE,
+export function setModalCloseState(payload = false) {
+  return { type: SET_MODAL_CLOSE_STATE,
            payload };
 }
 
@@ -33,18 +34,6 @@ export function closeModalAndUpdatePin(data, status) {
   }
   return { type: CLOSE_MODAL_AND_UPDATE_PIN,
            payload };
-}
-
-export function createFormData(payload) {
-  const formData = new FormData();
-  for (const field in payload) {
-    if (field !== 'image') {
-      formData.append(field, payload[field]);
-    } else {
-      formData.append('file', payload[field][0]);
-    }
-  }
-  return formData;
 }
 
 export function setPinState(payload) {
@@ -83,14 +72,14 @@ export const actions = {
 
 export default function exploreReducer(state = exploreState, action) {
   switch (action.type) {
-    case SET_CLOSE_STATE:
+    case SET_MODAL_CLOSE_STATE:
       return state.set('modalOpenStatus', { status: action.payload });
     case CLOSE_MODAL_AND_UPDATE_PIN:
       return state.merge(
         Map({ modalOpenStatus: { status: action.payload.modalStatus },
               pins: state.get('pins').unshift(action.payload.savedPin),
               imagePreview: undefined })
-      );
+        );
     case OPEN_MODAL:
       return state.set('modalOpenStatus', { status: action.payload });
     case FILE_PREVIEW:
