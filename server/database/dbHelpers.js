@@ -88,13 +88,9 @@ const insertQueryBuilder = (table, values) => {
   }
 };
 
-const cloudinaryUpload = (file, callback) => done => {
-  cloudinary.uploader.upload(file, result => {
-    callback(result);
-    done();
-  });
-};
-
+const cloudinaryUpload = file => new Promise(
+  resolve => cloudinary.uploader.upload(file, result => resolve(result))
+);
 
 module.exports = {
   SINGLE_CARD,
