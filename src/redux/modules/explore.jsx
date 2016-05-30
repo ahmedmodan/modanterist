@@ -3,11 +3,11 @@ import { Map, List } from 'immutable';
 import { createFormData } from './../../utils/helpers';
 
 
-export const CLOSE_MODAL_AND_UPDATE_PIN = Symbol('CLOSE_MODAL_AND_UPDATE_PIN');
-export const OPEN_MODAL = Symbol('OPEN_MODAL');
-export const SET_MODAL_CLOSE_STATE = Symbol('SET_MODAL_CLOSE_STATE');
-export const FILE_PREVIEW = Symbol('FILE_PREVIEW');
-export const SET_PIN_STATE = Symbol('SET_PIN_STATE');
+export const CLOSE_MODAL_AND_UPDATE_PIN = 'CLOSE_MODAL_AND_UPDATE_PIN';
+export const OPEN_MODAL = 'OPEN_MODAL';
+export const SET_MODAL_CLOSE_STATE = 'SET_MODAL_CLOSE_STATE';
+export const FILE_PREVIEW = 'FILE_PREVIEW';
+export const SET_PIN_STATE = 'SET_PIN_STATE';
 
 
 // export function logResponse(response) {
