@@ -26,6 +26,10 @@ export class Explore extends React.Component {
     setModalCloseState: PropTypes.func.isRequired,
   }
 
+  constructor(props) {
+    super(props);
+    this.handleModalOpen = ::this.handleModalOpen;
+  }
 
   componentWillMount() {
     this.props.getPins(['art', 'diy', 'food', 'fitness']);
@@ -71,7 +75,7 @@ export class Explore extends React.Component {
           <CardGrid arrOfCards={ this.props.pins } />
           <ButtonModal className="pin-button"
             buttonName={ this.saveButton }
-            buttonAction={ ::this.handleModalOpen }
+            buttonAction={ this.handleModalOpen }
             modalTitle="Create a Pin"
             modalBody={ this.pinFormForModal }
           />
