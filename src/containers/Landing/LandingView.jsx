@@ -2,6 +2,7 @@ import React from 'react';
 import LoginForm from './../../components/loginForm/loginForm';
 import { Link } from 'react-router';
 
+/* eslint-disable react/prefer-stateless-function */
 export default class LandingView extends React.Component {
 
   render() {
@@ -16,3 +17,4 @@ export default class LandingView extends React.Component {
     );
   }
 }
+/* eslint-enable react/prefer-stateless-function */

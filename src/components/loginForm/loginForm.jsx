@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 import { reduxForm } from 'redux-form';
-
+/* eslint-disable react/prefer-stateless-function */
 export class LoginForm extends React.Component {
   static propTypes = {
     fields: PropTypes.object.isRequired,
@@ -48,7 +48,7 @@ export class LoginForm extends React.Component {
     );
   }
 }
-
+/* eslint-disable react/prefer-stateless-function */
 export default reduxForm({
   form: 'loginForm',
   fields: ['username', 'password']
