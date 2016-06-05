@@ -14,6 +14,7 @@ export class NavBar extends React.Component {
 
   isLoggedIn() {
     // TODO: WRITE FUNCTION TO CHECK LOGIN STATUS
+
   }
 
   get loginLogout() {

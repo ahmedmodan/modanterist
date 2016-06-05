@@ -17,8 +17,17 @@ function combineTagsAndCards(cards, tags) {
   });
 }
 
+function combineTagsAndIDs(queryRows) {
+  return queryRows.reduce(
+    (tagsObject, tag) => {
+      const tagsObj = tagsObject;
+      tagsObj[tag._id] = tag.tag;
+      return tagsObj;
+    }, {}
+  );
+}
+
 const savePin = function* () {
-  let imageData;
   const fields = this.request.body.fields;
   const tags = fields.tags.split(' ');
   const availableTags = yield db.queryDB(
@@ -29,7 +38,7 @@ const savePin = function* () {
   );
   const extractedTags = availableTags.rows.map(tagRow => tagRow.tag);
   const tagsToSave = tags.filter(tag => extractedTags.indexOf(tag) === -1).join(' ');
-  yield db.cloudinaryUpload(this.request.body.files.file.path, data => (imageData = data));
+  const imageData = yield db.cloudinaryUpload(this.request.body.files.file.path);
   fields.image_url = imageData.url;
   yield db.queryDB(
     db.insertQueryBuilder(db.TAGS, tagsToSave)
@@ -50,7 +59,7 @@ const savePin = function* () {
   if (result.command === 'INSERT' && result.rowCount === 1) {
     fields.tags = tags;
     this.response.status = 200;
-    this.response.body = combineTagsAndCards([savedCard.rows[0]], tags);
+    this.response.body = [Object.assign({}, savedCard.rows[0], { tags_ids: tags })];
   }
 };
 
@@ -62,13 +71,7 @@ const getPins = function* () {
       params: tags
     })
   );
-  const tagsAndIDs = tagQuery.rows.reduce(
-    (tagsObject, tag) => {
-      const tagsObj = tagsObject;
-      tagsObj[tag._id] = tag.tag;
-      return tagsObj;
-    }, {}
-  );
+  const tagsAndIDs = combineTagsAndIDs(tagQuery.rows);
   const cardsQuery = yield db.queryDB(
     db.selectQueryBuilder(db.CARDS, {
       column: [all],

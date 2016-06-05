@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 
-import { getPins, openModal, setCloseState } from './../../redux/modules/explore';
+import { getPins, openModal, setModalCloseState } from './../../redux/modules/explore';
 
 import NavBar from './../../components/navbar/navbar';
 import CardGrid from './../../components/CardGrid/CardGrid';
@@ -23,13 +23,17 @@ export class Explore extends React.Component {
     modalOpenStatus: PropTypes.object.isRequired,
     getPins: PropTypes.func.isRequired,
     openModal: PropTypes.func.isRequired,
-    setCloseState: PropTypes.func.isRequired,
+    setModalCloseState: PropTypes.func.isRequired,
   }
 
+  constructor(props) {
+    super(props);
+    this.handleModalOpen = ::this.handleModalOpen;
+  }
 
   componentWillMount() {
     this.props.getPins(['art', 'diy', 'food', 'fitness']);
-    this.props.setCloseState();
+    this.props.setModalCloseState();
   }
 
   componentDidMount() {
@@ -47,7 +51,7 @@ export class Explore extends React.Component {
   }
 
   componentWillUnmount() {
-    this.props.setCloseState();
+    this.props.setModalCloseState();
   }
 
 
@@ -71,7 +75,7 @@ export class Explore extends React.Component {
           <CardGrid arrOfCards={ this.props.pins } />
           <ButtonModal className="pin-button"
             buttonName={ this.saveButton }
-            buttonAction={ ::this.handleModalOpen }
+            buttonAction={ this.handleModalOpen }
             modalTitle="Create a Pin"
             modalBody={ this.pinFormForModal }
           />
@@ -81,4 +85,4 @@ export class Explore extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, { getPins, openModal, setCloseState })(Explore);
+export default connect(mapStateToProps, { getPins, openModal, setModalCloseState })(Explore);

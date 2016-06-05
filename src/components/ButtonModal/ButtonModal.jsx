@@ -13,7 +13,9 @@ export function ButtonModal({ buttonName, modalTitle, modalBody, buttonAction })
       <div id="modal1" className="modal">
         <div className="modal-content">
           <h4>{ modalTitle }</h4>
-          { modalBody }
+          <div className="row">
+            { modalBody }
+          </div>
         </div>
       </div>
     </div>
