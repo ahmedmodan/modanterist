@@ -1,4 +1,3 @@
-require('dotenv').config();
 
 const koa = require('koa');
 const serve = require('koa-static');
@@ -9,6 +8,7 @@ const historyApiFallback = require('koa-connect-history-api-fallback');
 const app = koa();
 
 if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config();
   const webpack = require('webpack');
   const webpackConfig = require('../webpack.config');
   const compiler = webpack(webpackConfig);

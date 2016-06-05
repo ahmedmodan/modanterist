@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 
+/* eslint-disable react/prefer-stateless-function */
 export default class HelloRoutes extends React.Component {
   render() {
     return (
@@ -11,3 +12,4 @@ export default class HelloRoutes extends React.Component {
     );
   }
 }
+/* eslint-enable react/prefer-stateless-function */
