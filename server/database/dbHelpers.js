@@ -19,9 +19,12 @@ const queryDB = function* (query) {
 };
 
 const tagIDReducer = (tagArray) => tagArray.reduce(
-      (formattedTagIds, tagId) =>
-      formattedTagIds === '' ? `${tagId._id}` : `${formattedTagIds}, ${tagId._id}`
-    , '');
+  (formattedTagIds, tagId) => {
+    if (formattedTagIds === '') {
+      return `${tagId._id}`;
+    }
+    return `${formattedTagIds}, ${tagId._id}`;
+  }, '');
 
 // SELECT QUERY BUILDERS
 const tagsSelectQueryBuilder = (column, params) =>
@@ -47,8 +50,12 @@ const singleCardSelectQueryBuilder = (column, params) =>
 
 // INSERT QUERY BUILDERS
 const tagInsertQueryBuilder = (tags) => {
-  const formattedTags = tags.split(' ').reduce((formattedTag, tag) =>
-    formattedTag === '' ? `($$${tag}$$)` : `${formattedTag}, ($$${tag}$$)`, '');
+  const formattedTags = tags.split(' ').reduce((formattedTag, tag) => {
+    if (formattedTag === '') {
+      return `($$${tag}$$)`;
+    }
+    return `${formattedTag}, ($$${tag}$$)`;
+  }, '');
   return `INSERT INTO tags VALUES ${formattedTags}`;
 };
 
@@ -71,7 +78,7 @@ const selectQueryBuilder = (table, data) => {
     case CARDS:
       return cardsSelectQueryBuilder(data.column, data.params);
     default:
-    // TODO: CHANGE DEFAULT RETURN STATEMENT
+      // TODO: CHANGE DEFAULT RETURN STATEMENT
       return null;
   }
 };
@@ -83,7 +90,7 @@ const insertQueryBuilder = (table, values) => {
     case TAGS:
       return tagInsertQueryBuilder(values);
     default:
-    // TODO: CHANGE DEFAULT RETURN STATEMENT
+      // TODO: CHANGE DEFAULT RETURN STATEMENT
       return null;
   }
 };
