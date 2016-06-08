@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import Row from './../styleComponents/Row';
 
 export function ButtonModal({ buttonName, modalTitle, modalBody, buttonAction }) {
   return (
@@ -13,9 +14,9 @@ export function ButtonModal({ buttonName, modalTitle, modalBody, buttonAction })
       <div id="modal1" className="modal">
         <div className="modal-content">
           <h4>{ modalTitle }</h4>
-          <div className="row">
+          <Row>
             { modalBody }
-          </div>
+          </Row>
         </div>
       </div>
     </div>
