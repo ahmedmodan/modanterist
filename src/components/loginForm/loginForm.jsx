@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 // import { Link } from 'react-router';
 import { reduxForm } from 'redux-form';
 import SmallFormInput from './../smallFormInput/smallFormInput';
+import Row from './../styleComponents/Row';
 import { actions as authActions } from './../../redux/modules/auth';
 
 const mapStateToProps = ({ auth }) => ({
@@ -20,7 +21,7 @@ export class LoginForm extends React.Component {
   render() {
     const { fields: { username, password }, handleSubmit } = this.props;
     return (
-      <div className="row">
+      <Row>
         <form onSubmit={ handleSubmit(this.props.toggleLogIn) } >
           <div className="col s6 offset-s3">
             <SmallFormInput field={ username } inputLabel="Username" />
@@ -32,7 +33,7 @@ export class LoginForm extends React.Component {
             <button type="submit" className="btn waves-effect wave-light">Log In</button>
           </div>
         </form>
-      </div>
+      </Row>
     );
   }
 }
