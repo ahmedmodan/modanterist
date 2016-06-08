@@ -2,26 +2,24 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
-const mapStateToProps = (state) => ({
-  state
+const mapStateToProps = ({ auth }) => ({
+  loggedIn: auth.get('loggedIn')
 });
 
 export class NavBar extends React.Component {
   static propTypes = {
-    location: PropTypes.object
+    loggedIn: PropTypes.bool.isRequired,
+  }
+  constructor(props) {
+    super(props);
+    this.authStatus = ::this.authStatus;
   }
 
-
-  isLoggedIn() {
-    // TODO: WRITE FUNCTION TO CHECK LOGIN STATUS
-
-  }
-
-  get loginLogout() {
-    if (this.isLoggedIn()) {
-      return <button className="btn btn-primary"><Link to="/">Logout</Link></button>;
+  authStatus() {
+    if (this.props.loggedIn) {
+      return <a>Log out</a>;
     }
-    return <Link to="/">Login</Link>;
+    return <a>Log In</a>;
   }
 
   render() {
@@ -30,7 +28,7 @@ export class NavBar extends React.Component {
           <Link to="/" className="brand-logo">Modanterist</Link>
           <ul className="right hide-on-med-and-down">
             <li>
-              { this.loginLogout }
+              { this.authStatus() }
             </li>
           </ul>
         </nav>
