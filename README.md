@@ -3,7 +3,9 @@ A Pinterest Clone in React + Redux.
 
 This is a personal project and serves as a testing ground for any and all technologies I want to try out.
 
-In order to get started make sure you have Node > 5 installed. Node 6 is breaking some dependencies so make sure the node version is below node 6.
+This is built atop a [React + Redux + Koa boilerplate](https://github.com/ahmedmodan/react-redux-koa)
+
+In order to get started make sure you have Node > 5 installed.
 You will also need to have PostgreSQL installed on your local machine.
 
 To get started complete the following steps:
